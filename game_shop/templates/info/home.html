@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Страница навигации{% endblock %}
+
+{% block content %}
+<h1>Студент: Крылов Эдуард Васильевич!</h1>
+
+<ul>
+    {% for category in categories %}
+    <li>
+        <a href="/info/">{{ category.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

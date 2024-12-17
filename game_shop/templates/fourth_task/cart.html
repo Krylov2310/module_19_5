@@ -1,0 +1,19 @@
+{% extends 'base.html' %} <!-- Шаблон наследуется от базового шаблона base.html -->
+
+{% block title %}Корзина{% endblock %}
+{% block pagename %}Корзина{% endblock %}
+
+{% block content %}
+<h2 align="center" xmlns="http://www.w3.org/1999/html">Корзина</h2> <!-- Заголовок раздела -->
+    <ul>
+        {% for name, details in cart_items.items %}
+            <li>{{ name }} - Цена: {{ details.price }}руб., Количество: {{ details.quantity }}</li>
+        {% endfor %}
+    </ul>
+    <p>Общая сумма: {{ total }}р</p>
+    {% if discount_percent > 0 %}
+        <p>Скидка: {{ discount_percent }}%</p>
+        <p>Итоговая сумма: {{ final_total }}р</p>
+    {% endif %}
+    <a href="/menu/"><button>Вернуться обратно</button></a>
+{% endblock %}

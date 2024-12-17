@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ base_title }}{% endblock %}
+{% block pagename %}{{ base_title }}{% endblock %}
+
+{% block content %}
+<h2 align="center" xmlns="http://www.w3.org/1999/html">Новости</h2> <!-- Заголовок раздела -->
+<!-- Сетка товаров -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for set_new in page_obj %}
+    <!-- Каждая карточка товара -->
+    <div class="col">
+        <div class="card h-100"> <!-- Карточка Bootstrap с высотой, заполняющей колонку -->
+            <div class="card-body">
+                <h5 class="card-title">{{ set_new.title }}</h5>  <!-- Название события -->
+                <p class="card-text">{{ set_new.content|truncatewords:30 }}</p>  <!-- Описание события -->
+                <p class="card-text">Дата: {{ set_new.date }}</p>  <!-- Дата-->
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<!-- Выпадающий список для выбора количества постов на странице -->
+<div>
+    <form method="get" style="margin-bottom: 20px;">
+        <label for="per_page">Показать на странице:</label>
+        <select name="per_page" id="per_page" onchange="this.form.submit()">
+            <option value="3" {% if per_page == 3 %}selected{% endif %}>3</option>
+            <option value="6" {% if per_page == 6 %}selected{% endif %}>6</option>
+            <option value="12" {% if per_page == 12 %}selected{% endif %}>12</option>
+            <option value="15" {% if per_page == 15 %}selected{% endif %}>15</option>
+        </select>
+    </form>
+</div>
+
+<!-- Навигация по страницам (пагинация) -->
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        <!-- Кнопка "Назад" -->
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&per_page={{ per_page }}">Назад</a> <!-- Ссылка на предыдущую страницу -->
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">Назад</span> <!-- Заблокированная кнопка, если предыдущей страницы нет -->
+        </li>
+        {% endif %}
+
+        <!-- Номера страниц -->
+        {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+            <li class="page-item active">
+                <span class="page-link">{{ num }}</span> <!-- Активная страница -->
+            </li>
+            {% elif num > page_obj.number|add:-2 and num < page_obj.number|add:2 %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a> <!-- Ссылка на соседние страницы -->
+            </li>
+                {% endif %}
+        {% endfor %}
+
+        <!-- Кнопка вперед -->
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}&per_page={{ per_page }}">Вперед</a> <!-- ссылка на следующую страницу -->
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">Вперед</span> <!-- Заблокированная кнопка, если следующей страницы нет -->
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+<a href="/"><button>Вернуться обратно</button></a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %} <!-- Шаблон наследуется от базового шаблона base.html -->
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<h2 xmlns="http://www.w3.org/1999/html">{{ base_title }}</h2> <!-- Заголовок раздела -->
+<nav>
+    {% block menu %}
+    <a href="/">Главная</a> |
+    <a href="/games/">Каталог</a> |
+    <a href="/cart/">Корзина</a>
+    {% endblock %}
+</nav>
+{% endblock %}

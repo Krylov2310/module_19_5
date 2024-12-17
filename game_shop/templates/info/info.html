@@ -1,0 +1,15 @@
+{% extends 'base.html' %} <!-- Шаблон наследуется от базового шаблона base.html -->
+
+{% block title %}{{ base_title }}{% endblock %}
+
+{% block content %}
+    <h2 align="center"><u>{{ base_name }}</u></h2>
+    <h3 align="center">{{ base_student }}</h3>
+<body>
+    <ol>
+        <h2><li><a href="/menu/">"Магазин игр"</a></li></h2>
+        <h2><li><a href="/django/">"Регистрация пользователя Django"</a></li></h2>
+        <h2><li><a href="/news">"Новости"</a></li></h2>
+    </ol>
+</body>
+{% endblock %}

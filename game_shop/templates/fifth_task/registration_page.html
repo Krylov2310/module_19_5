@@ -1,0 +1,32 @@
+{% extends 'base.html' %} <!-- Шаблон наследуется от базового шаблона base.html -->
+
+{% block title %}{{ base_title }}{% endblock %}
+{% block pagename %}{{ base_title }}{% endblock %}
+
+{% block content %}
+<h2 align="center" xmlns="http://www.w3.org/1999/html">Регистрация</h2> <!-- Заголовок раздела -->
+<body>
+    {% if error %}
+        <h3><p style="color:red">{{ error }}</p></h3>
+    {% elif message %}
+        <h3><p style="color:blue">{{ message }}</p></h3>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <b><label for="username">Введите логин: </label></b>
+        <b><input type="text" id="username" name="username" maxlength="30" required><br><br></b>
+
+        <b><label for="password">Введите пароль: </label></b>
+        <b><input type="password" id="password" name="password" minlength="8" required></b>
+
+        <b><label for="repeat_password">Повторите пароль: </label></b>
+        <b><input type="password" id="repeat_password" name="repeat_password" minlength="8" required><br><br></b>
+
+        <b><label for="age">Введите ваш возраст: </label></b>
+        <b><input type="number" id="age" name="age" maxlength="3" required><br><br></b>
+
+        <button type="submit">Зарегистрироваться</button><br>
+    </form>
+            <br><a href="/"><button>Вернуться обратно</button></a></br>
+</body>
+{% endblock %}
